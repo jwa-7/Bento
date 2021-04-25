@@ -3,9 +3,9 @@
     <b>🍱 A Clean and Simple Startpage</b>
 </div>
 
-<p align="center">
-  <img src="https://github.com/MiguelRAvila/Bento/blob/master/assets/Header.png">
-</p>
+## New Design
+
+![New Design](assets/newDesign.png) 
 
 >  Wallpaper by [anima_contritum](https://www.reddit.com/user/anima_contritum)
 
@@ -14,6 +14,7 @@
 - [Bento](#)
   - [Features](#features)
   - [Usage](#usage)
+    - [Config](#config)
     - [Home Page](#as-home-page)
     - [New Tab](#as-new-tab)
   - [Customization](#customization)
@@ -33,8 +34,21 @@
 - **Variables** for custom colors and font sizes in the `style.css` code.
 - **Icons** all icons are from Feather Icons (Some others I made them with the Feather icons as a base)
 - **Modular** javascript files for an easy read.
+- **Templates** Usage of doT.js as template-engine for link-cards and link-lists
+- **Data** Decoupled data from view. Check out `list-data.js`
+
+- **Tested on**
+  - Mozilla Firefox
+  - Google Chrome
+  - iOS
 
 ## Usage:
+
+#### Config:
+
+* Update your cerdentials and preferences in `config.js`
+* The structure for your parent/child-list can be updated in `list-data.js`
+
 
 #### As Home Page:
 
@@ -54,28 +68,68 @@ You can use different Add-ons/Extensions for it
 
 ## Customization
 
-> All the code is using variables and is comented, It's easy to customize the project to your own, and this sections are the principal customizable elements in the Startpage:
+> Most of the code is using variables and is commented, It's easy to customize the project to your own, and this sections are the principal customizable elements in the Startpage.
+This fork relies heavily on doT.js templating. You can find them in the `index.html`.
+
+### Templates
+
+```html
+<script id="buttonLinksTemplate" type="text/x-dot-template">
+    {{~it :val:index}}
+        <a
+          href="{{=val.link}}"
+          target="_blank"
+          class="buttonLink__link card buttonLink__link-{{=index+1}}"
+        >
+          {{? val.icon}}
+            <i class="buttonLink__icon" data-feather="{{=val.icon}}"></i>
+          {{?}}
+          {{? val.title}}
+            <span>{{=val.title}}</span>
+          {{?}}
+        </a>
+    {{~}}
+</script>
+```
 
 ### Links
 
-You can change the links (and the icons too) in the HTML Code:
+You can change the links (and the icons too) in the `list-data.js`:
 
-```html
-<a
-  href="https://github.com/"
-  target="blank"
-  class="buttonLink__link card buttonLink__link-1"
->
-  <i class="buttonLink__icon" data-feather="github"></i>
-</a>
+```javascript
+const DATA = {
+    "buttonLinks": [
+        {
+            "title": "GitHub",
+            "link": "https://github.com/jwa-7",
+            "icon": "github"
+        }...
+    ],
+    "lists": {
+        "parentListIcon": "arrow-up-right",
+        "model":
+            [
+                {
+                    "title": "Server",
+                    "targetChildListId": "serverList",
+                    "icon": "server",
+                    "childListEntries": [
+                        {
+                            "title": "Docker",
+                            "link": "https://www.docker.com/"
+                        }
+                    ]
+                }
+            ]
+    }
+};
 ```
 
-Change the link in the `href` property with the link you want. (The `target="blank"` makes the link to open a new tab with the link you choose).
 The Project uses [Feather icons](https://feathericons.com/) for the icons, and you can change them in the `data-feather=""` property with the name of the icon in the page.
 
 ### Colors
 
-In the CSS code you can always change the variables for both themes (Dark and Light)
+In the SCSS code you can always change the variables for both themes (Dark and Light)
 
 ```css
 /* Light theme  */
@@ -101,21 +155,6 @@ In the CSS code you can always change the variables for both themes (Dark and Li
   <img src="https://github.com/MiguelRAvila/Bento/blob/master/assets/SubHeader.png">
 </p>
 
-### Theme Depending at the time
-
-In the `theme.js` file there's a section about changing the theme depending in the time. You have to 'Uncomment' that section to enable it:
-
-```js
-const today = new Date();
-const Hr = today.getHours();
-
-if (Hr >= 19 || Hr < 5) {
-  enableDark();
-} else {
-  disableDark();
-}
-```
-
 ### Image Background
 
 You can set your own background image with the variable `--imgbg` and set the route to the image you want It's disable by default. If you uncomment the variable, it has by default this image:
@@ -128,33 +167,33 @@ It has a black filter by default in `--imgcol`, and it'ts value is: `rgba(255, 2
 
 ### Greetings
 
-You can put your name and change the greetings.
+You can put your name in the `config.js` and change the greetings in `greeting.js`.
 
 ```js
-var name = "John Doe";
-const gree1 = "Go to Sleep!  ";
-const gree2 = "Good morning!  ";
-const gree3 = "Good afternoon  ";
-const gree4 = "Good evening,  ";
+var name = YOUR_NAME;
+const greeting1 = 'Go to Sleep!';
+const greeting2 = 'Good morning!';
+const greeting3 = 'Good afternoon';
+const greeting4 = 'Good evening,';
 ```
 
 It'll change in order of the hour.
 
 ### Weather Info
 
-For setting up the Weather widget you're going to need an API Key in: `https://openweathermap.org/`. Once you have your Key you'll need to set yourlatitude and longitude, you can use: `https://www.latlong.net/` to get them. Then you just have to fill them in the `weather.js` in the **js** folder:
+For setting up the Weather widget you're going to need an API Key in: `https://openweathermap.org/`. Once you have your Key you'll need to set yourlatitude and longitude, you can use: `https://www.latlong.net/` to get them. Then you just have to fill them in the `config.js` in the **js** folder. Then it gets used in `weather.js`:
 
 ```js
 // Use your own key for the Weather, Get it here: https://openweathermap.org/
-const key = "XXXXXXXXXXXXXXXXXXXXXXXXXXX";
+const key = OPEN_WEATHER_MAP_API_KEY;
 
 setPosition();
 
-function setPosition(position) {
+function setPosition() {
   // Here you can change your position
   // You can use https://www.latlong.net/ to get it! (I use San Francisco as an example)
-  let latitude = 37.774929;
-  let longitude = -122.419418;
+  let latitude = LOCATION_LATITUDE;
+  let longitude = LOCATION_LONGITUDE;
 
   getWeather(latitude, longitude);
 }
