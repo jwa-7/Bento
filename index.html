@@ -1,158 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Bento</title>
-    <link rel=" shortcut icon" type="image/png" href="icons/favicon.png" />
 
-    <link rel="stylesheet" href="css/style.css" />
+<head>
+  <meta charset="UTF-8" />
+  <title>Bento</title>
+  <link rel="shortcut icon" href="icons/favicon.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
 
-    <script src="https://unpkg.com/feather-icons"></script>
-  </head>
+<body class="">
+  <button id="themeButton">
+    <i id="themeButton__icon" data-feather="moon"></i>
+  </button>
+  <div class="container">
+    <!-- Clock and Greetings  -->
+    <div class="timeBlock">
+      <div class="clock">
+        <div id="hour" class=""></div>
+        <div id="separator" class=""></div>
+        <div id="minutes" class=""></div>
+      </div>
+      <div id="greetings" class=""></div>
+    </div>
 
-  <body class="">
-    <button id="themeButton">
-      <i id="themeButton__icon" data-feather="moon"></i>
-    </button>
-    <div class="container">
-      <!-- Clock and Greetings  -->
-
-      <div class="timeBlock">
-        <div class="clock">
-          <div id="hour" class=""></div>
-          <div id="separator" class=""></div>
-          <div id="minutes" class=""></div>
+    <!-- Date and Weather  -->
+    <div class="weatherBlock">
+      <div class="weatherBlock__date">
+        <div id="monthday" class=""></div>
+      </div>
+      <div class="weatherBlock__weather">
+        <div class="weather-icon">
+          <img src="icons/OneDark/unknown.png" />
         </div>
-        <div id="greetings" class=""></div>
-      </div>
-
-      <!-- Date and Weather  -->
-
-      <div class="weatherBlock">
-        <div class="weatherBlock__date">
-          <div id="month" class=""></div>
-          <div id="day" class=""></div>
+        <div class="temperature-value">
+          <p class="">- °<span class="g">c</span></p>
         </div>
-        <div class="weatherBlock__weather">
-          <div class="weather-icon">
-            <img src="icons/OneDark/unknown.png" />
-          </div>
-          <div class="temperature-value">
-            <p class="">- °<span class="g">c</span></p>
-          </div>
-          <div class="temperature-description">
-            <p class=""></p>
-          </div>
+        <div class="temperature-description">
+          <p class=""></p>
         </div>
-      </div>
-
-      <!-- Buttons Links  -->
-
-      <div class="buttonLink">
-        <a
-          href="https://github.com/"
-          target="blank"
-          class="buttonLink__link card buttonLink__link-1"
-        >
-          <i class="buttonLink__icon" data-feather="github"></i>
-        </a>
-        <a
-          target="blank"
-          href="https://outlook.live.com/mail/inbox"
-          class="buttonLink__link card buttonLink__link-2"
-        >
-          <i class="buttonLink__icon" data-feather="mail"></i>
-        </a>
-        <a
-          target="blank"
-          href="https://calendar.google.com/calendar/r"
-          class="buttonLink__link card buttonLink__link-3"
-        >
-          <i class="buttonLink__icon" data-feather="calendar"></i>
-        </a>
-        <a
-          target="blank"
-          href="https://flipboard.com/"
-          class="buttonLink__link card buttonLink__link-4"
-        >
-          <i class="buttonLink__icon" data-feather="bookmark"></i>
-        </a>
-        <a
-          href="https://columns.app"
-          target="blank"
-          class="buttonLink__link card buttonLink__link-5"
-        >
-          <i class="buttonLink__icon" data-feather="trello"></i>
-        </a>
-        <a
-          target="blank"
-          href="https://www.youtube.com/"
-          class="buttonLink__link card buttonLink__link-6"
-        >
-          <i class="buttonLink__icon" data-feather="youtube"></i>
-        </a>
-      </div>
-
-      <!-- Lists  -->
-
-      <div class="card list list__1">
-        <i class="list__head" data-feather="music"></i>
-        <a
-          target="blank"
-          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-          class="list__link"
-          >Inspirational</a
-        >
-        <a
-          target="blank"
-          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-          class="list__link"
-          >Classic</a
-        >
-        <a
-          target="blank"
-          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-          class="list__link"
-          >Oldies</a
-        >
-        <a
-          target="blank"
-          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-          class="list__link"
-          >Rock</a
-        >
-      </div>
-
-      <div class="card list list__2">
-        <i class="list__head" data-feather="coffee"></i>
-        <a href="https://www.linkedin.com" target="blank" class="list__link"
-          >LinkedIn</a
-        >
-        <a href="https://dribbble.com/" target="blank" class="list__link"
-          >Dribble</a
-        >
-        <a href="https://www.udemy.com/" target="blank" class="list__link"
-          >Udemy</a
-        >
-        <a
-          href="https://www.figma.com/files/recent"
-          target="blank"
-          class="list__link"
-          >Figma</a
-        >
       </div>
     </div>
 
-    <!-- Scrips  -->
-
-    <script src="js/time.js"></script>
-    <script src="js/theme.js"></script>
-    <script src="js/greeting.js"></script>
-    <script src="js/weather.js"></script>
-    <script>
-      feather.replace();
+    <!-- Buttons Links  -->
+    <script id="buttonLinksTemplate" type="text/x-dot-template">
+        {{~it :val:index}}
+            <a
+              href="{{=val.link}}"
+              target="_blank"
+              class="buttonLink__link card buttonLink__link-{{=index+1}}"
+            >
+              {{? val.icon}}
+                <i class="buttonLink__icon" data-feather="{{=val.icon}}"></i>
+              {{?}}
+              {{? val.title}}
+                <span>{{=val.title}}</span>
+              {{?}}
+            </a>
+        {{~}}
     </script>
-  </body>
+    <div class="buttonLink">
+      <span class="preloader">Loading...</span>
+    </div>
 
-  <!-- Coded and designed by Miguel R. Ávila: https://github.com/MiguelRAvila -->
+
+    <!-- Lists  -->
+    <script id="listLinksTemplate" type="text/x-dot-template">
+        {{? it.parentListIcon}}
+          <i class="list__head" data-feather="{{=it.parentListIcon}}"></i>
+        {{?}}
+        <div class="list__parentList--scrollwrapper">
+          {{~it.model :val:index}}
+          <a
+          target="_blank"
+          href="#"
+          class="list__link {{? index == 0}}selected{{?}}"
+          data-target-id="{{= val.targetChildListId}}_{{=index}}"
+          >{{= val.title}}</a>
+          {{~}}
+        </div>
+      </script>
+    <div class="card list list__parentList">
+      <span class="preloader">Loading...</span>
+    </div>
+
+    <script id="listLinkChildTemplate" type="text/x-dot-template">
+        {{~it :val:index}}
+          <div id="{{=val.targetChildListId}}_{{=index}}" class="card list list__childListLinks {{? index > 0}}hidden{{?}}">
+            <i class="list__head" data-feather="{{=val.icon}}"></i>
+            <span class="list__childListLinks__headline">{{=val.title}}</span>
+            <div class="list__link-scrollwrapper">
+              {{~val.childListEntries :listEntry}}
+                <a href="{{=listEntry.link}}" class="list__link">{{=listEntry.title}}</a>
+              {{~}}
+            </div>
+          </div>
+        {{~}}
+      </script>
+    <div class="list list__childListLinks-wrapper">
+      <span class="preloader">Loading...</span>
+    </div>
+
+  </div>
+
+  <!-- Scripts  -->
+  <script src="js/config.js"></script>
+  <!-- Templating -->
+  <script src="js/list-data.js"></script>
+  <script src="js/doT.min.js"></script>
+  <script src="js/render.js"></script>
+  <!-- Other -->
+  <script src="js/time.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/greeting.js"></script>
+  <script src="js/weather.js"></script>
+  <script src="js/list-switcher.js"></script>
+  <!-- Icons -->
+  <script>
+    feather.replace();
+    setTimeout(() => {
+      var featherIcons = document.querySelectorAll(".feather");
+      [].forEach.call(featherIcons, function (el) {
+        el.attributes["stroke-width"].value = ICON_STROKE_WIDTH;
+      });
+    }, 0.05 * 1000);
+  </script>
+</body>
+
+<!-- Coded and designed by Miguel R. Ávila: https://github.com/MiguelRAvila -->
+<!-- Fork by Janik Wambsganss: https://github.com/jwa-7 -->
+
 </html>

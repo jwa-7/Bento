@@ -3,23 +3,25 @@ const today = new Date();
 const hour = today.getHours();
 
 // Here you can change your name
-const name = ' John Doe';
+const name = YOUR_NAME;
 
 // Here you can change your greetings
-const gree1 = 'Go to Sleep!  ';
-const gree2 = 'Good morning!  ';
-const gree3 = 'Good afternoon  ';
-const gree4 = 'Good evening,  ';
-const gree5 = 'Good evening,  ';
-const gree6 = 'Good evening,  ';
+const greeting1 = 'Go to Sleep!';
+const greeting2 = 'Good morning!';
+const greeting3 = 'Good afternoon';
+const greeting4 = 'Good evening,';
 
 // Define the hours of the greetings
 if (hour >= 23 && hour < 5) {
-  document.getElementById('greetings').innerText = gree1 + name;
+  document.getElementById('greetings').innerText = buildGreeting(greeting1, name);
 } else if (hour >= 6 && hour < 12) {
-  document.getElementById('greetings').innerText = gree2 + name;
+  document.getElementById('greetings').innerText = buildGreeting(greeting2, name);
 } else if (hour >= 12 && hour < 17) {
-  document.getElementById('greetings').innerText = gree3 + name;
+  document.getElementById('greetings').innerText = buildGreeting(greeting3, name);
 } else {
-  document.getElementById('greetings').innerText = gree4 + name;
+  document.getElementById('greetings').innerText = buildGreeting(greeting4, name);
+}
+
+function buildGreeting(greeting, name){
+ return greeting + String.fromCharCode(160) + String.fromCharCode(160) + name + ".";
 }

@@ -1,28 +1,17 @@
 window.onload = displayClock();
 function displayClock() {
-  const monthNames = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ];
 
   // Set to true to use a 12 hour date format
-  var format_12hour = false;
+  var format_12hour = TIME_12H_FORMAT;
 
   var d = new Date();
-  var mm = monthNames[d.getMonth()];
-  var dd = d.getDate();
+  //* DATE
+  var dateString = d.toLocaleDateString(YOUR_LOCATION_LOCALE, { month: 'long', day: "2-digit" })
+  document.getElementById("monthday").innerHTML = dateString;
+
+  //* TIME
   var min = (mins = ('0' + d.getMinutes()).slice(-2));
-  var hh = d.getHours();
+  var hh = d.getHours() < 10 ? '0' + d.getHours() : d.getHours();
   var ampm = '';
 
   if (format_12hour) {
@@ -34,9 +23,6 @@ function displayClock() {
   document.getElementById('hour').innerText = hh;
   document.getElementById('separator').innerHTML = ' : ';
   document.getElementById('minutes').innerText = min + ampm;
-
-  document.getElementById('month').innerText = mm;
-  document.getElementById('day').innerText = dd;
 
   setTimeout(displayClock, 1000);
 }
